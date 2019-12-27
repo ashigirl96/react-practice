@@ -9,7 +9,10 @@
     ]
   },
   "hosting": {
-    "public": "public",
+    "headers": [
+      {"source":  "/service-worker.js", "headers":  [{"key":  "Cache-Control", "value":  "no-cache"}]}
+    ],
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -17,14 +20,18 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/index",
         "destination": "/index.html"
+      },
+      {
+        "source": "/api",
+        "function": "helloWorld"
       }
     ]
   },
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5005
     },
     "firestore": {
       "port": 8080
